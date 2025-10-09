@@ -1,0 +1,10 @@
+body {
+    background-color: linear-gradient(-45deg, red, blue),
+    linear-gradient(90deg, #5500ff, #00ff55);
+    background-blend-mode: overlay;
+}
+
+.pfp img{
+    width: 20px;
+    object-fit: contain;
+}
