@@ -4,7 +4,29 @@ body {
     background-blend-mode: overlay;
 }
 
+.container {
+    display: flex;
+}
+
+.recipe {
+    width: 100px;
+    height: 150px;
+    background-color: bisque;
+    border-radius: 15px;
+}
+
+.recipe:hover {
+    border: 2px solid red;
+}
+
 .pfp img{
     width: 20px;
     object-fit: contain;
+}
+
+@media (min-width: 760px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
 }

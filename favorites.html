@@ -5,6 +5,11 @@
     <meta name="description" content="Welcome to ChopChop!" />
     <link rel="stylesheet" href="./styles/favorites.css" />
     <title>ChopChop</title>
+    <style>
+      .addRecipe {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <nav>
@@ -18,10 +23,47 @@
       <p>Your Favorite Recipes</p>
     </header>
     <div classname="container">
-      <p>recipes recipes</p>
+      <div classname="recipe">
+        <p>Spaghetti</p>
+      </div>
+      <div classname="recipe">
+        <p>Sushi Bake</p>
+      </div>
+      <div classname="recipe">
+        <p>Fried Rice</p>
+      </div>
+    </div>
+    <button id="addRecipe">+</button>
+    <div id="addWindow" class="addRecipe">
+      <span>
+        <p>Recipe Link</p>
+        <input type="url" id="link" name="link" />
+        <input type="submit" name="submit" />
+      </span>
+      <hr />
+      <p>Manual Recipe Entry</p>
+      <span>
+        <input type="text" id="ingredient" name="ingredient" />
+        <input type="number" id="amount" name="amount" />
+        <select name="unit" id="unit">
+          <option value="lb">lb</option>
+          <option value="oz">oz</option>
+          <option value="ml">ml</option>
+        </select>
+      </span>
+      <button id="addIngredient">+</button>
+      <input type="text" id="step" name="step" />
     </div>
     <footer>
       <p>footer content</p>
     </footer>
   </body>
+  <script>
+    var modal = document.getElementById("addWindow");
+    var btn = document.getElementById("addRecipe");
+
+    btn.onclick = function () {
+      modal.style.display = "block";
+    };
+  </script>
 </html>
