@@ -35,9 +35,10 @@
     </div>
     <button id="addRecipe">+</button>
     <div id="addWindow" class="addRecipe">
+      <button id="closeBtn">X</button>
       <span>
         <p>Recipe Link</p>
-        <input type="url" id="link" name="link" />
+        <input tsype="url" id="link" name="link" />
         <input type="submit" name="submit" />
       </span>
       <hr />
@@ -59,11 +60,17 @@
     </footer>
   </body>
   <script>
+    // add recipe modal window (open by clicking '+' button, close by clicking 'X' button)
     var modal = document.getElementById("addWindow");
     var btn = document.getElementById("addRecipe");
+    var closeBtn = document.getElementById("closeBtn");
 
     btn.onclick = function () {
       modal.style.display = "block";
+    };
+
+    closeBtn.onclick = function () {
+      modal.style.display = "none";
     };
   </script>
 </html>
