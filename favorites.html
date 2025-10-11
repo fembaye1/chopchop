@@ -2,9 +2,352 @@
 <html>
   <head>
     <meta name="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Welcome to ChopChop!" />
-    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./styles/favorites.css" />
     <title>ChopChop</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <nav class="main-nav">
+        <a class="logo" href="index.html">
+          <img
+            src="assets/pfp.jpg"
+            alt="temporary logo placeholder"
+            width="36"
+            height="36"
+          />
+          <span>ChopChop</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="./index.html">Recipe Library</a></li>
+          <li><a class="active" href="#">Favorites</a></li>
+          <li><a href="./shoppingList.html">Shopping List</a></li>
+        </ul>
+        <a class="pfp" href="">
+          <img
+            src="assets/pfp.jpg"
+            alt="profile picture placeholder"
+            width="36"
+            height="36"
+          />
+        </a>
+      </nav>
+    </header>
+
+    <!-- main content -->
+    <div class="container">
+      <!-- hero title card thing -->
+      <section class="hero">
+        <h1 id="favoritesTitle">Your Favorite recipes</h1>
+      </section>
+
+      <!-- filter, sort, and view  -->
+      <div class="controls">
+        <button id="gridBtn">Grid</button>
+        <button id="listBtn">List</button>
+        <button id="filterBtn" class="control-btn">Filter / Sort</button>
+        <button id="addBtn" class="control-btn">+ Add</button>
+      </div>
+
+      <!-- recipes -->
+      <!-- grid view -->
+      <section id="gridView" class="view grid-view">
+        <div class="grid" id="recipeGrid">
+          <!-- recipe cards -->
+          <article class="card" data-id="1">
+            <div class="card-top">
+              <span class="tag">Lasagna</span>
+              <button class="moreBtn">...</button>
+            </div>
+            <img
+              src="assets/food.jpg"
+              alt="recipe thumbnail placeholder"
+              class="thumbnail"
+            />
+            <div class="card-body">
+              <p class="quickDesc">Italian ~ 60 min</p>
+              <p class="summary">Hearty layers of pasta and cheese.</p>
+            </div>
+          </article>
+          <article class="card" data-id="2">
+            <div class="card-top">
+              <span class="tag">Sushi Bake</span>
+              <button class="moreBtn">...</button>
+            </div>
+            <img
+              src="assets/food.jpg"
+              alt="recipe thumbnail placeholder"
+              class="thumbnail"
+            />
+            <div class="card-body">
+              <p class="quickDesc">Japanese ~ 30 min</p>
+              <p class="summary">
+                Quick and easy spicy mayo, salmon, rice, and nori goodness.
+              </p>
+            </div>
+          </article>
+          <article class="card" data-id="3">
+            <div class="card-top">
+              <span class="tag">PB&J Sandwich</span>
+              <button class="moreBtn">...</button>
+            </div>
+            <img
+              src="assets/food.jpg"
+              alt="recipe thumbnail placeholder"
+              class="thumbnail"
+            />
+            <div class="card-body">
+              <p class="quickDesc">American ~ 10 min</p>
+              <p class="summary">Classic sweet and nutty sandwich.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- list view -->
+      <section id="listView" class="view list-view">
+        <ul class="list" id="recipeList">
+          <li class="list-item">
+            <img
+              src="assets/food.jpg"
+              alt="food thumbnail"
+              class="list-thumb"
+            />
+            <div class="list-content">
+              <h3>Lasagna</h3>
+              <p>Italian ~ 60 min - Hearty layers of pasta and cheese.</p>
+            </div>
+            <div class="list-actions">
+              <button class="tinyBtn">Open</button>
+              <button class="tinyBtn">Edit</button>
+            </div>
+          </li>
+          <li class="list-item">
+            <img
+              src="assets/food.jpg"
+              alt="food thumbnail"
+              class="list-thumb"
+            />
+            <div class="list-content">
+              <h3>Sushi Bake</h3>
+              <p>
+                Japanese ~ 30 min - Quick and easy spicy mayo, salmon, rice, and
+                nori goodness.
+              </p>
+            </div>
+            <div class="list-actions">
+              <button class="tinyBtn">Open</button>
+              <button class="tinyBtn">Edit</button>
+            </div>
+          </li>
+          <li class="list-item">
+            <img
+              src="assets/food.jpg"
+              alt="food thumbnail"
+              class="list-thumb"
+            />
+            <div class="list-content">
+              <h3>PB&J Sandwich</h3>
+              <p>American ~ 10 min - Classic sweet and nutty sandwich.</p>
+            </div>
+            <div class="list-actions">
+              <button class="tinyBtn">Open</button>
+              <button class="tinyBtn">Edit</button>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- recipe actions modal -->
+      <div id="recipeActions" class="modal" role="dialog">
+        <div class="modal-content">
+          <h3 id="modalTitle">Recipe actions</h3>
+          <p id="modalDesc">Quick actions for this recipe</p>
+          <div class="modal-actions">
+            <button id="openDetail" class="button">Open</button>
+            <button id="editRecipe" class="button secondary">Edit</button>
+            <button id="closeModal" class="button tertiary">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- add recipe modal -->
+      <button id="addRecipeBtn">+</button>
+      <div id="addRecipeModal" class="addRecipe">
+        <div class="modal-content">
+          <button
+            id="closeAddModal"
+            class="button tertiary"
+            style="float: right"
+          >
+            X
+          </button>
+          <h3>Add a New Recipe</h3>
+
+          <form id="addRecipeForm">
+            <p><strong>Recipe Link</strong></p>
+            <input
+              type="url"
+              id="link"
+              name="link"
+              placeholder="Paste recipe URL..."
+            />
+
+            <hr />
+            <p><strong>Manual Recipe Entry</strong></p>
+            <label for="ingredient">Ingredient</label>
+            <input
+              type="text"
+              id="ingredient"
+              name="ingredient"
+              placeholder="e.g., flour"
+            />
+
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder="e.g., 2"
+            />
+
+            <label for="unit">Unit</label>
+            <select name="unit" id="unit">
+              <option value="lb">lb</option>
+              <option value="oz">oz</option>
+              <option value="ml">ml</option>
+            </select>
+
+            <label for="step">Step</label>
+            <input
+              type="text"
+              id="step"
+              name="step"
+              placeholder="e.g., Mix all ingredients"
+            />
+
+            <div style="margin-top: 12px">
+              <button type="button" id="addIngredient" class="button secondary">
+                + Add Ingredient
+              </button>
+              <button type="submit" class="button">Save Recipe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>© ChopChop - Your Personal Recipe Library</p>
+    </footer>
+  </body>
+  <script>
+    // switching views and filter
+    (function () {
+      const views = {
+        grid: document.getElementById("gridView"),
+        list: document.getElementById("listView"),
+      };
+      function hideAll() {
+        Object.values(views).forEach((v) => {
+          v.style.display = "none";
+        });
+      }
+      function show(viewEl) {
+        hideAll();
+        viewEl.style.display = "";
+      }
+
+      // Default view = grid
+      show(views.grid);
+
+      // View switching buttons
+      document.getElementById("gridBtn").addEventListener("click", () => {
+        show(views.grid);
+      });
+
+      document.getElementById("listBtn").addEventListener("click", () => {
+        show(views.list);
+      });
+
+      // recipe actions ("..." button)
+      const recipeModal = document.getElementById("recipeActions");
+      document.querySelectorAll(".moreBtn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          recipeModal.style.display = "block";
+          document.getElementById("openDetail").focus();
+        });
+      });
+      document.getElementById("closeModal").addEventListener("click", () => {
+        recipeModal.style.display = "none";
+      });
+    })();
+
+    // add recipe modal functionality
+    const addModal = document.getElementById("addRecipeModal");
+    const openAddBtn = document.getElementById("addRecipeBtn");
+    const addBtnControl = document.getElementById("addBtn"); // The "Add" button in controls
+    const closeAddBtn = document.getElementById("closeAddModal");
+    const addRecipeForm = document.getElementById("addRecipeForm");
+
+    // Open modal from floating button
+    openAddBtn.addEventListener("click", () => {
+      addModal.style.display = "flex";
+    });
+
+    // Open modal from "Add" button in controls
+    addBtnControl.addEventListener("click", () => {
+      addModal.style.display = "flex";
+    });
+
+    // Close modal
+    closeAddBtn.addEventListener("click", () => {
+      addModal.style.display = "none";
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener("click", (event) => {
+      if (event.target === addModal) {
+        addModal.style.display = "none";
+      }
+    });
+
+    // Handle form submission
+    addRecipeForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      // Get form values
+      const formData = {
+        link: document.getElementById("link").value,
+        ingredient: document.getElementById("ingredient").value,
+        amount: document.getElementById("amount").value,
+        unit: document.getElementById("unit").value,
+        step: document.getElementById("step").value,
+      };
+
+      // Here you would typically save the recipe
+      console.log("Recipe data:", formData);
+
+      // Show success message and close modal
+      alert("Recipe added successfully!");
+      addRecipeForm.reset();
+      addModal.style.display = "none";
+    });
+
+    // Add ingredient functionality
+    document.getElementById("addIngredient").addEventListener("click", () => {
+      const ingredient = document.getElementById("ingredient").value;
+      const amount = document.getElementById("amount").value;
+      const unit = document.getElementById("unit").value;
+
+      if (ingredient && amount) {
+        alert(`Added ingredient: ${amount} ${unit} ${ingredient}`);
+        // Clear the ingredient fields for next entry
+        document.getElementById("ingredient").value = "";
+        document.getElementById("amount").value = "";
+      } else {
+        alert("Please enter both ingredient and amount");
+      }
+    });
+  </script>
 </html>
