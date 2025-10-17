@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- URL to cs4640 server:  -->
+    <meta
+      name="author"
+      content="Norah Lee: Favorites and Index html and css. Faniel Embaye: "
+    />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Welcome to ChopChop!" />
@@ -11,27 +16,26 @@
     <!-- Header -->
     <header class="header">
       <nav class="main-nav">
-        <a class="logo" href="index.html">
+        <a class="logo" href="#">
           <img
             src="assets/logo.svg"
-            alt="temporary logo placeholder"
+            alt="ChopChop logo"
             width="36"
             height="36"
           />
           <span>ChopChop</span>
         </a>
+
+        <!-- Main Nav -->
         <ul class="nav-links">
-          <li><a href="">Recipe Library</a></li>
-          <li><a href="./favorites.html">Favorites</a></li>
+          <li><a href="./recipeLibrary.html">Recipe Library</a></li>
+          <li><a class="active" href="./favorites.html">Favorites</a></li>
           <li><a href="./shoppingList.html">Shopping List</a></li>
         </ul>
-        <a class="pfp" href="#">
-          <img
-            src="assets/pfp.jpg"
-            alt="profile picture placeholder"
-            width="36"
-            height="36"
-          />
+
+        <!-- Profile -->
+        <a class="pfp" href="./profile.html">
+          <img src="assets/pfp.jpg" alt="Profile" width="36" height="36" />
         </a>
       </nav>
     </header>
