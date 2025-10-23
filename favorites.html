@@ -204,6 +204,8 @@
       document.getElementById("gridBtn").onclick = () => showView(gridView);
       document.getElementById("listBtn").onclick = () => showView(listView);
 
+      // once showView is called, have both views hidden to ensure a blank screen
+      // then remove hidden attribute to selected view so it's no longer hidden
       function showView(view) {
         gridView.classList.add("hidden");
         listView.classList.add("hidden");
