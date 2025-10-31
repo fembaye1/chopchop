@@ -1,62 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- URL to cs4640 server: https://cs4640.cs.virginia.edu/mbv7xs/chopchop/ -->
-    <meta
-      name="author"
-      content="Norah Lee: Favorites and Index html and css. Faniel Embaye: "
-    />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Welcome DepMoLXMkKhqto ChopChop!" />
-    <link rel="stylesheet" href="./styles/index.css" />
-    <title>ChopChop — Sign In</title>
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <nav class="main-nav">
-        <a class="logo" href="#">
-          <img
-            src="assets/logo.svg"
-            alt="ChopChop logo"
-            width="36"
-            height="36"
-          />
-          <span>ChopChop</span>
-        </a>
+<?php
+    require_once 'db.php';
+    require_once 'models/Recipe.php';
+    require_once 'models/Favorite.php';
+    require_once 'models/User.php';
 
-        <!-- Main Nav -->
-        <ul class="nav-links">
-          <li><a href="./recipeLibrary.html">Recipe Library</a></li>
-          <li><a href="./favorites.html">Favorites</a></li>
-          <li><a href="./shoppingList.html">Shopping List</a></li>
-        </ul>
+    session_start();
 
-        <!-- Profile -->
-        <a class="pfp" href="./profile.html">
-          <img src="assets/pfp.jpg" alt="Profile" width="36" height="36" />
-        </a>
-      </nav>
-    </header>
+    // Get the requested URL
+    $url = $_GET['url'] ?? 'home';
+    $url = rtrim($url, '/');
+    $urlParts = explode('/', $url);
 
-    <!-- Main Content -->
-    <!-- Addresses user login functionality -->
-    <main>
-      <h1>Welcome to ChopChop</h1>
-      <p>Sign in to access your personalized recipe library.</p>
-      <button class="google-btn">
-        <img
-          src="https://developers.google.com/identity/images/g-logo.png"
-          alt="Google sign-in prompt"
-        />
-        <span>Sign in with Google</span>
-      </button>
-    </main>
+    $page = $urlParts[0] ?? 'home';
+    $action = $urlParts[1] ?? 'index';
+    $id = $urlParts[2] ?? null;
 
-    <!-- Footer -->
-    <footer>
-      <p>© ChopChop - Your Personal Recipe Library</p>
-    </footer>
-  </body>
-</html>
+    // Initialize models
+    $recipeModel = new Recipe($pdo);
+    $favoriteModel = new Favorite($pdo);
+    $userModel = new User($pdo);
+
+    // route handling
+    switch ($page) {
+        case 'home':
+            // If user is logged in, redirect to recipe library
+            if (isset($_SESSION['user_id'])) {
+                header('Location: /recipe-library');
+                exit();
+            }
+            // If not logged in, show the login/home page
+            include 'templates/home.php';
+            break;
+
+        case 'recipe-library':
+        // Check authentication
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /home');
+            exit();
+        }
+
+        $user_id = $_SESSION['user_id'];
+        $search = $_GET['search'] ?? '';
+        
+        if ($search) {
+            $recipes = $recipeModel->search($search);
+        } else {
+            $recipes = $recipeModel->findAll();
+        }
+        include 'templates/recipeLibrary.php';
+        break;
+
+    case 'favorites':
+        // Check authentication
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /home');
+            exit();
+        }
+
+        $user_id = $_SESSION['user_id'];
+        $favorites = $favoriteModel->getFavoritesByUser($user_id);
+        
+        // Handle recipe creation from the modal
+        $error = '';
+        $success = '';
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_recipe'])) {
+            $title = trim($_POST['title']);
+            $genre = trim($_POST['genre']);
+            $time_takes = intval($_POST['time_takes']);
+            $instructions = trim($_POST['instructions']);
+            $ingredients = $_POST['ingredients'] ?? [];
+
+            if (empty($title) || empty($genre) || empty($instructions)) {
+                $error = "Please fill in all required fields.";
+            } elseif ($time_takes <= 0) {
+                $error = "Cooking time must be a positive number.";
+            } else {
+                $image_path = null;
+                if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    $uploadDir = "uploads/";
+                    if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+                    $filename = uniqid() . "_" . basename($_FILES['image']['name']);
+                    $targetPath = $uploadDir . $filename;
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
+                        $image_path = $targetPath;
+                    } else {
+                        $error = "Image upload failed.";
+                    }
+                }
+
+                if (empty($error)) {
+                    if ($recipeModel->create($user_id, $title, $genre, $time_takes, $instructions, $ingredients, $image_path)) {
+                        $success = "Recipe added successfully!";
+                        // Refresh the favorites list
+                        $favorites = $favoriteModel->getFavoritesByUser($user_id);
+                    } else {
+                        $error = "Failed to add recipe.";
+                    }
+                }
+            }
+        }
+        
+        include 'templates/favoritesTemplate.php';
+        break;
+
+    case 'shopping-list':
+        // Check authentication
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /home');
+            exit();
+        }
+
+        // shopping list logic will come later...
+        include 'templates/shoppingList.php';
+        break;
+
+    case 'login':
+        // Handle login form submission
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+            
+            $user = $userModel->findByEmail($email);
+            
+            if ($user && password_verify($password, $user['password_hash'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                header('Location: /recipe-library');
+                exit();
+            } else {
+                $error = "Invalid email or password.";
+                include 'templates/home.php';
+            }
+        } else {
+            header('Location: /home');
+            exit();
+        }
+        break;
+
+    case 'logout':
+        session_destroy();
+        header('Location: /home');
+        exit();
+        break;
+
+    default:
+        header('Location: /home');
+        exit();
+        break;
+    }
+?>

@@ -12,7 +12,7 @@
       <nav class="main-nav">
         <a class="logo" href="index.html">
           <img
-            src="assets/logo.svg"
+            src="../assets/logo.svg"
             alt="ChopChop logo"
             width="36"
             height="36"
@@ -31,7 +31,7 @@
 
         <!-- Profile -->
         <a class="pfp" href="./profile.html">
-          <img src="assets/pfp.jpg" alt="Profile" width="36" height="36" />
+          <img src="../assets/pfp.jpg" alt="Profile" width="36" height="36" />
         </a>
       </nav>
     </header>
@@ -56,117 +56,23 @@
 
       <!-- Recipe Cards to show what it would look like for meals-->
       <div class="recipes-grid">
-        <!-- Recipe Card 1 -->
+        <?php foreach ($recipes as $recipe): ?>
         <div class="recipe-card">
           <img
-            src="assets/food.jpg"
-            alt="Spaghetti Carbonara"
+            src="<?= (htmlspecialchars($recipe['image_path']) ?: '../assets/food.jpg') ?>"
+            alt="<?= htmlspecialchars($recipe['title']) ?> recipe"
             class="recipe-image"
           />
           <div class="recipe-content">
-            <h3>Spaghetti Carbonara</h3>
-            <p class="recipe-description">
-              Classic Italian pasta with eggs, cheese, and pancetta
-            </p>
+            <h3><?= htmlspecialchars($recipe['title']) ?></h3>
             <div class="recipe-meta">
-              <span class="cooking-time">20 min</span>
-              <span class="difficulty">Easy</span>
+              <span class="cooking-time"><?= htmlspecialchars($recipe['time_takes']) ?> min</span>
+              <span class="genre"><?= htmlspecialchars($recipe['genre']) ?></span>
             </div>
             <button class="view-recipe-btn">View Recipe</button>
           </div>
         </div>
-
-        <!-- Recipe Card 2 -->
-        <div class="recipe-card">
-          <img
-            src="assets/food.jpg"
-            alt="Chicken Stir Fry"
-            class="recipe-image"
-          />
-          <div class="recipe-content">
-            <h3>Chicken Stir Fry</h3>
-            <p class="recipe-description">
-              Quick and healthy Asian-inspired chicken with vegetables
-            </p>
-            <div class="recipe-meta">
-              <span class="cooking-time">15 min</span>
-              <span class="difficulty">Easy</span>
-            </div>
-            <button class="view-recipe-btn">View Recipe</button>
-          </div>
-        </div>
-
-        <!-- Recipe Card 3 -->
-        <div class="recipe-card">
-          <img
-            src="assets/food.jpg"
-            alt="Chocolate Chip Cookies"
-            class="recipe-image"
-          />
-          <div class="recipe-content">
-            <h3>Chocolate Chip Cookies</h3>
-            <p class="recipe-description">
-              Soft and chewy homemade cookies perfect for dessert
-            </p>
-            <div class="recipe-meta">
-              <span class="cooking-time">30 min</span>
-              <span class="difficulty">Medium</span>
-            </div>
-            <button class="view-recipe-btn">View Recipe</button>
-          </div>
-        </div>
-
-        <!-- Recipe Card 4 -->
-        <div class="recipe-card">
-          <img src="assets/food.jpg" alt="Caesar Salad" class="recipe-image" />
-          <div class="recipe-content">
-            <h3>Caesar Salad</h3>
-            <p class="recipe-description">
-              Fresh romaine lettuce with homemade Caesar dressing
-            </p>
-            <div class="recipe-meta">
-              <span class="cooking-time">10 min</span>
-              <span class="difficulty">Easy</span>
-            </div>
-            <button class="view-recipe-btn">View Recipe</button>
-          </div>
-        </div>
-
-        <!-- Recipe Card 5 -->
-        <div class="recipe-card">
-          <img src="assets/food.jpg" alt="Beef Tacos" class="recipe-image" />
-          <div class="recipe-content">
-            <h3>Beef Tacos</h3>
-            <p class="recipe-description">
-              Seasoned ground beef with fresh toppings in crispy shells
-            </p>
-            <div class="recipe-meta">
-              <span class="cooking-time">25 min</span>
-              <span class="difficulty">Easy</span>
-            </div>
-            <button class="view-recipe-btn">View Recipe</button>
-          </div>
-        </div>
-
-        <!-- Recipe Card 6 -->
-        <div class="recipe-card">
-          <img
-            src="assets/food.jpg"
-            alt="Vegetable Soup"
-            class="recipe-image"
-          />
-          <div class="recipe-content">
-            <h3>Vegetable Soup</h3>
-            <p class="recipe-description">
-              Hearty soup packed with seasonal vegetables
-            </p>
-            <div class="recipe-meta">
-              <span class="cooking-time">45 min</span>
-              <span class="difficulty">Easy</span>
-            </div>
-            <button class="view-recipe-btn">View Recipe</button>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </div>
     </main>
 

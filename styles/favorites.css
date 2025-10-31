@@ -1,9 +1,12 @@
-body {
+* {
   font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+body {
   margin: 0;
   color: #2b2b2b;
   background: linear-gradient(180deg, #fffdf9, #fff2e8);
-  line-height: 1.4;
 }
 
 /* header of app (eyebrow nav, main nav, profile) */
@@ -62,7 +65,6 @@ body {
   margin-bottom: 20px;
 }
 .controls button {
-  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   background: #ff8a4b;
   border: none;
   padding: 8px 16px;
@@ -72,7 +74,7 @@ body {
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
 }
-.controls button:hover {
+.controls button:hover, button:active {
   background: #ff6a1f;
   transform: translateY(-2px);
 }
