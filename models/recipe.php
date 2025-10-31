@@ -7,21 +7,25 @@
         }
 
         public function create($user_id, $title, $genre, $time_takes, $instructions, $ingredients = [], $image_path = null) {
-            $ingredients_json = json_encode($ingredients);
-            
-            $stmt = $this->pdo->prepare("
-                INSERT INTO chop_recipes (user_id, title, image_path, genre, time_takes, instructions, ingredients)
-                VALUES (:user_id, :title, :image_path, :genre, :time_takes, :instructions, :ingredients)
-            ");
-            return $stmt->execute([
-                'user_id' => $user_id,
-                'title' => $title,
-                'image_path' => $image_path,
-                'genre' => $genre,
-                'time_takes' => $time_takes,
-                'instructions' => $instructions,
-                'ingredients' => $ingredients_json
-            ]);
+            try {
+                $stmt = $this->pdo->prepare("
+                    INSERT INTO chop_recipes (user_id, title, image_path, genre, time_takes, instructions, ingredients)
+                    VALUES (:user_id, :title, :image_path, :genre, :time_takes, :instructions, :ingredients)
+                ");
+                $stmt->execute([
+                    'user_id' => $user_id,
+                    'title' => $title,
+                    'image_path' => $image_path,
+                    'genre' => $genre,
+                    'time_takes' => $time_takes,
+                    'instructions' => $instructions,
+                    'ingredients' => $ingredients_json
+                ]);
+                return true;
+            } catch (PDOException $e) {
+                error_log("Create recipe failed: " . $e->getMessage());
+                return false;
+            }
         }
 
         public function findByUser($user_id) {

@@ -3,7 +3,7 @@
   <head>
     <meta name="utf-8" />
     <meta name="description" content="Welcome to ChopChop!" />
-    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="/chop/styles/index.css" />
     <title>ChopChop - Recipe Library</title>
   </head>
   <body>
@@ -12,7 +12,7 @@
       <nav class="main-nav">
         <a class="logo" href="index.html">
           <img
-            src="../assets/logo.svg"
+            src="/chop/assets/logo.svg"
             alt="ChopChop logo"
             width="36"
             height="36"
@@ -23,15 +23,15 @@
         <!-- Main Navigation -->
         <ul class="nav-links">
           <li>
-            <a class="active" href="./recipeLibrary.html">Recipe Library</a>
+            <a class="active" href="/chop/recipe-library">Recipe Library</a>
           </li>
-          <li><a href="./favorites.html">Favorites</a></li>
-          <li><a href="./shoppingList.html">Shopping List</a></li>
+          <li><a href="/chop/index.php?url=favorites">Favorites</a></li>
+          <li><a href="/chop/index.php?url=shopping-list">Shopping List</a></li>
         </ul>
 
         <!-- Profile -->
-        <a class="pfp" href="./profile.html">
-          <img src="../assets/pfp.jpg" alt="Profile" width="36" height="36" />
+        <a class="pfp" href="/chop/profile.php">
+          <img src="/chop/assets/pfp.jpg" alt="Profile" width="36" height="36" />
         </a>
       </nav>
     </header>
