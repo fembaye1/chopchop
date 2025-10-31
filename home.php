@@ -4,7 +4,7 @@
     <!-- URL to cs4640 server: https://cs4640.cs.virginia.edu/mbv7xs/chopchop/ -->
     <meta
       name="author"
-      content="Norah Lee: Favorites and Index html and css. Faniel Embaye: "
+      content="Norah Lee: Favorites and Index html and css. Faniel Embaye: shoppinglist and recipelibrary"
     />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
