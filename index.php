@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- URL to cs4640 server: https://cs4640.cs.virginia.edu/mbv7xs/chopchop/ -->
+    <meta
+      name="author"
+      content="Norah Lee: Favorites and Index html and css. Faniel Embaye: "
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Welcome DepMoLXMkKhqto ChopChop!" />
+    <link rel="stylesheet" href="./styles/index.css" />
+    <title>ChopChop — Sign In</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="main-nav">
+        <a class="logo" href="#">
+          <img
+            src="assets/logo.svg"
+            alt="ChopChop logo"
+            width="36"
+            height="36"
+          />
+          <span>ChopChop</span>
+        </a>
+
+        <!-- Main Nav -->
+        <ul class="nav-links">
+          <li><a href="./recipeLibrary.html">Recipe Library</a></li>
+          <li><a href="./favorites.html">Favorites</a></li>
+          <li><a href="./shoppingList.html">Shopping List</a></li>
+        </ul>
+
+        <!-- Profile -->
+        <a class="pfp" href="./profile.html">
+          <img src="assets/pfp.jpg" alt="Profile" width="36" height="36" />
+        </a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <!-- Addresses user login functionality -->
+    <main>
+      <h1>Welcome to ChopChop</h1>
+      <p>Sign in to access your personalized recipe library.</p>
+      <button class="google-btn">
+        <img
+          src="https://developers.google.com/identity/images/g-logo.png"
+          alt="Google sign-in prompt"
+        />
+        <span>Sign in with Google</span>
+      </button>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>© ChopChop - Your Personal Recipe Library</p>
+    </footer>
+  </body>
+</html>

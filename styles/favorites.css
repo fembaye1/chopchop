@@ -55,12 +55,14 @@ body {
 
 /* controls for views, filters, adding recipe, etc. */
 .controls {
+  justify-content: center;
   display: flex;
   gap: 10px;
   padding: 0 20px;
   margin-bottom: 20px;
 }
 .controls button {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   background: #ff8a4b;
   border: none;
   padding: 8px 16px;
@@ -110,7 +112,7 @@ body {
 }
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.295);
 }
 .card-top {
   display: flex;
